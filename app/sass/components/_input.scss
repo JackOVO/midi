@@ -1,0 +1,87 @@
+@import "global";
+@import "icons";
+
+$input-padding-left: rem-calc(10);
+$search-input-height: rem-calc(36);
+
+// 下拉框尺寸
+$select-line-height: rem-calc(34);
+$select-input-padding-top: 0;
+$select-input-padding-left: 10px;
+$select-input-border-radius-size: 0;
+$select-dropdown-maring: -1px 0 0 0;
+$select-dropdown-content-max-height: rem-calc(150);
+$select-dropdown-content-padding: 2px 0 2px 0;
+$select-dropdown-option-padding: 0 10px;
+
+// 下拉框颜色
+$select-disabled-bg-color: #f0f0f0;
+$select-input-border-color: #3b9eff;
+$select-input-font-color: #7f7f7f;
+$select-input-bg: $white;
+$select-input-active-bg-color: $white;
+$select-dropdown-border-color: #3b9eff;
+$select-dropdown-hover-option-font-color: $white;
+$select-dropdown-hover-option-bg: linear-gradient(-179deg, #67afe8 0%, #4b82ec 100%);
+$select-description-color: #7d7d7d;
+
+$search-input-border-color: #3b9eff;
+
+@include exports ("input") {
+
+  input[type='text'] {
+    padding-left: $input-padding-left;
+  }
+
+  .search-input {
+    height: $search-input-height;
+    line-height: $search-input-height;
+    border: 1px solid $search-input-border-color;
+  }
+
+  // 下拉容器
+  .select-control {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    line-height: $select-line-height;
+    white-space: nowrap;
+
+    .select-input {
+      padding: $select-input-padding-top $select-input-padding-left;
+      border: 1px solid $select-input-border-color;
+      border-radius: $select-input-border-radius-size;
+      background: $select-input-bg;
+      color: $select-input-font-color;
+      cursor: pointer;
+
+      @include icon-abs-before("arrow", (0, -1px));
+      &::before { left: auto; right: $select-input-padding-left; }
+    }
+
+    .select-dropdown {
+      position: absolute;
+      z-index: 1;
+      width: 100%;
+      margin: $select-dropdown-maring;
+      border: 1px solid $select-dropdown-border-color;
+      background-color: $select-input-active-bg-color;
+      @include side-radius(bottom, $select-input-border-radius-size);
+    }
+
+    .select-dropdown-content {
+      max-height: $select-dropdown-content-max-height;
+      padding: $select-dropdown-content-padding;
+      overflow: auto;
+    }
+
+    .option {
+      padding: $select-dropdown-option-padding; cursor: pointer;
+      &.hover, &:hover {
+        color: $select-dropdown-hover-option-font-color;
+        background: $select-dropdown-hover-option-bg;
+      }
+    }
+  }
+
+}

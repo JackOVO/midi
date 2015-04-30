@@ -1,0 +1,47 @@
+@import "normalize.scss";
+@import "components/_global.scss";
+@import "components/_icons.scss";
+@import "components/_input.scss";
+@import "components/_buttons.scss";
+
+$wrapper-width: rem-calc(1200);
+$search-input-width: rem-calc(400);
+$select-control-width: rem-calc(90);
+
+$file-header-height: rem-calc(60);
+$file-header-padding: 0 rem-calc(110);
+
+
+$file-header-bg-color: #eef7ff;
+$file-header-border-color: #a3cef9;
+
+#file-header {
+  background-color: $file-header-bg-color;
+  box-shadow: 0 1px $file-header-border-color;
+
+  .wrapper {
+    height: $file-header-height;
+    padding: $file-header-padding;
+    font-size: 14px;
+    line-height: $file-header-height;
+
+    > input { margin-left: 10px; }
+  }
+
+  .search-input {
+    width: $search-input-width;
+    outline: 0;
+  }
+
+  .select-control {
+    width: $select-control-width;
+    margin-left: -1px;
+  }
+}
+.wrapper {
+  width: $wrapper-width;
+  margin: 0 auto;
+}
+div {
+  //outline: 1px solid orange;
+}

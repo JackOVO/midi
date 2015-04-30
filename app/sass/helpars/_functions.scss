@@ -1,0 +1,61 @@
+// 功能函数
+
+// 默认body的font-size和rem单位的基础值
+$rem-base: 16px !default;
+
+// 模块数组, 防止过多依赖的模块多次加载
+$modules: () !default;
+
+// 根据名字添加到全局模块中
+@mixin exports ($name) {
+  // 引入全局模块
+  $modules: $modules !global;
+
+  // 检查组件是否已经存在
+  $module_index: index($modules, $name);
+  @if (($module_index == null) or ($module_index == false)) {
+    $modules: append($modules, $name) !global;
+    // 接受一整块样式
+    @content;
+  }
+}
+
+// 去掉单位?
+@function strip-unit ($num) {
+  @return $num / ($num * 0 + 1);
+}
+
+// 转换到rem
+@function convert-to-rem ($value, $base-value: $rem-base) {
+  $value: strip-unit($value) / strip-unit($base-value) * 1rem;
+  @if ($value == 0rem) { $value: 0; }
+  @return $value;
+}
+
+// 返回数据前缀
+@function data ($attr) {
+  @if $namespace {
+    @return '[data-' + $namespace + '-' + $attr + ']';
+  }
+
+  @return '[data-' + $attr + ']';
+}
+
+// rem计算
+// $values - 需要转换的值或者数组
+// $base-value - 转换为rem的基础值 Default:$rem-base or 16px
+@function rem-calc ($values, $base-value: $rem-base) {
+  $max: length($values);
+
+  // 如果只有一位
+  @if $max == 1 {
+    @return convert-to-rem(nth($values, 1), $base-value);
+  }
+
+  $remValues: ();
+  @for $i from 1 through $max {
+    $remValues: append($remValues, convert-to-rem(nth($values, $i), $base-value));
+  }
+  @return $remValues;
+}
+

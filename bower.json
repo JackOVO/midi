@@ -1,0 +1,16 @@
+{
+  "name": "dfinderA",
+  "version": "0.0.0",
+  "authors": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.4.0-rc.1",
+    "angular-cookies": "1.4.0-rc.1"
+  }
+}
