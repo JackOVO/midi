@@ -1,17 +1,16 @@
 @import "global";
+@import "icons";
 
-// 大小控制
+// 按钮大小
+$button-sml-width: rem-calc(70);
 $button-sml-height: rem-calc(36);
+$button-cld-width: rem-calc(56);
+$button-cld-height: rem-calc(60);
 
 // 控制显示属性
 $button-display: inline-block;
-$button-line-height: $button-sml-height;
-$button-letter-spacing: rem-calc(4);
-$button-min-letter-spacing: rem-calc(2);
-
-// 控制按钮边框样式
-$button-border-width: 1px;
-$button-border-style: solid;
+$button-line-height: rem-calc(26);
+$button-letter-spacing: rem-calc(2);
 
 // 控制按钮文本样式
 $button-font-size: rem-calc(14); // 正常
@@ -19,10 +18,20 @@ $button-font-family: $body-font-family;
 $button-font-weight: $font-weight-normal;
 $button-font-align: center;
 $button-font-color: $white;
-$button-font-color-alt: $base-font-color; // 高亮度字体颜色
 
-// 颜色控制
-$button-search-bg: #3b9eff;
+// 控制按钮边框样式
+$button-border-width: 1px;
+$button-border-style: solid;
+
+$button-login-font-size: rem-calc(16);
+
+// 不同类型颜色控制
+$button-primary-bg-color: #3b9eff;
+$button-primary-color: $white;
+$button-primary-border-color: #3b9eff;
+$button-login-color: #50a9ff;
+$button-login-bg-color: #eef7ff;
+$button-login-border-color: #eef7ff;
 
 // 创建一个基础按钮的样式
 // $style - 是否添加样式
@@ -34,10 +43,12 @@ $button-search-bg: #3b9eff;
     line-height: normal;
     border-width: $button-border-width;
     border-style: $button-border-style;
+    font-size: $button-font-size;
     font-family: $button-font-family;
     font-weight: $button-font-weight;
     text-decoration: none;
     text-align: $button-font-align;
+    cursor: $cursor-pointer-value;
     -webkit-appearance: none;
     -moz-appearance: none;
     border-radius:0;
@@ -46,219 +57,46 @@ $button-search-bg: #3b9eff;
   @if $display { display: $display; }
 }
 
-// 控制按钮尺寸的混入
-// $button-height - 高度控制行高
-// $button-width - 自动宽度
-@mixin button-size (
-  $button-height: $button-sml-height,
-  $button-width: auto) {
-
-  height: $button-height;
-  @if ($button-width) { width: $button-width; }
-}
-
 @include exports ("bottons") {
-
   button, .button {
     @include button-base;
+    letter-spacing: $button-letter-spacing;
 
-    &.small { @include button-size($button-sml-height, rem-calc(70)); }
+    // 固定宽高缸
+    &.cylinder {
+      width: $button-cld-width;
+      height: $button-cld-height;
+      line-height: $button-cld-height;
+    }
 
-    &.search {
-      border-color: $button-search-bg;
-      background-color: $button-search-bg;
+    &.small {
+      width: $button-sml-width;
+      height: $button-sml-height;
+      line-height: $button-sml-height;
+    }
+
+    &.primary {
+      color: $button-primary-color;
+      background-color: $button-primary-bg-color;
+      border-color: $button-primary-border-color;
+    }
+
+    &.login {
+      color: $button-login-color;
+      font-size: $button-login-font-size;
+      background-color: $button-login-bg-color;
+      border-color: $button-login-border-color;
+
+      &:hover {
+        background-color: $white;
+      }
+    }
+
+    // 行高机制真是麻烦
+    .icon-search {
+      display: inline-block;
+      margin: 0 auto;
+      line-height: rem-calc(26); // 加俩像素就可以居中?
     }
   }
 }
-
-// // 定义按钮
-
-// // 左右内边距控制大小
-// $button-tny-side: rem-calc(15); // 小号 2字 间4 64px  高 28px
-// $button-sml-side: rem-calc(19); // 正常 2字 间4 72px  高 28px
-// $button-lrg-side: rem-calc(43); // 大号 4字 间2 150px 高 32px
-
-
-
-
-
-// // 控制悬浮透明度
-// $button-function-factor: -20%;
-// $button-function-hover-opacity: .9;
-// $button-function-active-opacity: .8;
-
-// // 控制按钮边框样式
-// $button-border-width: 1px;
-// $button-border-style: solid;
-
-// // 控制默认圆角
-// $button-radius: 2px;
-
-// // 默认禁用样式控制
-// $button-disabled-opacity: .8;
-// $button-disabled-color-opacity: .5;
-// $button-disabled-cursor: $cursor-default-value;
-
-// // 颜色控制
-// $button-bg-color: #3b9eff;
-// $button-border-color: #87c4ff;
-// // 确认
-// $button-confirm-bg: #ff8585;
-// $button-confirm-border-color: #ff5c54;
-// // 取消
-// $button-cancel-bg: #f0f0f0;
-// $button-cancel-color: #505152;
-// $button-cancel-border-color: #a3a4a5;
-// $button-cancel-bg-hover: rgba($button-cancel-bg, .6);
-// // 禁用颜色控制
-// $button-disabled-bg-color: #6e747c;
-// $button-disabled-border-color: #4a4a4a;
-
-
-
-// // 控制按钮尺寸的混入
-// // $side-width - 左右内边距的值
-// // $letter-spacing - 文字间隔
-// // $line-height - 用行高控制高度
-// // $full-width - 是否宽度占满容器
-// @mixin button-size (
-//   $side-width:$button-sml,
-//   $letter-spacing:$button-letter-spacing,
-//   $line-height:$button-line-height,
-//   $full-width:false) {
-
-//   // 内边距控制宽度,行高控制高度
-//   padding-top: 0;
-//   padding-left: $side-width;
-//   padding-bottom: 0;
-//   padding-right: $side-width - $letter-spacing; // 字体间隔
-
-//   font-size: $button-font-size;
-//   letter-spacing: $letter-spacing;
-//   line-height: $line-height;
-
-//   // 创建一个占满父宽度的按钮
-//   @if $full-width {
-//     padding-right: 0;
-//     padding-left: 0;
-//     width: 100%; 
-//   }
-// }
-
-// // 用来创建各种状态的按钮(null会默认添加, false会为背景)
-// @mixin button-style (
-//   $bg: $button-bg-color,
-//   $color: $button-font-color,
-//   $border-color: $button-border-color,
-//   $bg-hover: null,
-//   $color-active: null,
-//   $disabled: false,
-//   $radius: true) {
-
-//   @if $bg {
-
-//     // 默认hover下.9背景透明度
-//     @if $bg-hover == null {
-//       $bg-hover: adjust-color($bg, $alpha: ($button-function-hover-opacity - 1));
-//     }
-
-//     // 默认active下.8的字体透明度
-//     @if $color-active == null {
-//       $color-active: adjust-color($color, $alpha: ($button-function-active-opacity - 1));
-//     }
-
-//     // 得到亮度
-//     $bg-lightness: lightness($bg);
-//     $bg-hover-lightness: lightness($bg-hover);
-
-//     color: $color;
-//     background: $bg;
-//     border-color: $border-color;
-
-//     &:hover,
-//     &.hover {
-//       background: $bg-hover;
-//     }
-
-//     &:active,
-//     &.active {
-//       color: $color-active;
-//     }
-//   }
-
-//   // 禁用样式覆盖
-//   @if $disabled {
-//     box-shadow: none;
-//     cursor: $button-disabled-cursor;
-//     opacity: $button-disabled-opacity;
-//     &:hover, &.hover, &:active, &.active {
-//       color: $color;
-//       background-color: $bg;
-//       border-color: $border-color;
-//     }
-//   }
-
-//   // 控制圆角
-//   @if $radius == true { @include radius($button-radius); }
-//   @else if $radius { @include radius($radius); }
-// }
-
-// @include exports ("bottons") {
-
-//   button, .button {
-//     @include button-base;
-
-//     @include single-transition(background-color);
-
-//     // 尺寸
-//     &.short { @include button-size($side-width: $button-tny-side,$line-height: 20px); }
-//     &.tiny { @include button-size($side-width: $button-tny-side); }
-//     &.small { @include button-size($side-width: $button-sml-side); }
-//     &.large { @include button-size(
-//       $side-width: $button-lrg-side,
-//       $letter-spacing: $button-min-letter-spacing,
-//       $line-height: 30px);
-//     };
-//     &.expand { @include button-size(
-//       $side-width: $button-min-letter-spacing,
-//       $line-height: 30px,
-//       $full-width: true);
-//     }
-
-
-//     // 功能
-//     &.primary { @include button-style($bg: $button-bg-color, $radius: 4px); }
-//     &.confirm {
-//       @include button-style(
-//         $radius: 3px,
-//         $bg: $button-confirm-bg,
-//         $border-color: $button-confirm-border-color);
-//     }
-//     &.cancel {
-//       @include button-style(
-//         $bg: $button-cancel-bg,
-//         $color: $button-cancel-color,
-//         $bg-hover: $button-cancel-bg-hover,
-//         $border-color: $button-cancel-border-color);
-//     }
-
-//     // 禁用
-//     &.disabled, &[disabled] {
-//       &.primary {
-//         @include button-style(
-//           $disabled: true,
-//           $color: rgba($button-font-color, .6),
-//           $bg: $button-disabled-bg-color,
-//           $border-color: $button-disabled-border-color);
-//       }
-
-//       &.confirm {
-//         @include button-style(
-//           $disabled: true,
-//           $color: rgba($button-font-color, .5),
-//           $bg: $button-confirm-bg,
-//           $border-color: $button-confirm-border-color);
-//       }
-//     }
-//   }
-// }

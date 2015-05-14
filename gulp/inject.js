@@ -45,8 +45,8 @@ module.exports = function (config) {
     return gulp
       .src(config.htmltemplates)
       .pipe($.minifyHtml({empty: true})) // 删除空属性
-      .pipe($.angularTemplatecache( // 创建模板服务
-        config.templateCache.filename,
+      .pipe($.angularTemplatecache(
+        config.templateCache.file,
         config.templateCache.options
       ))
       .pipe(gulp.dest(config.temp));

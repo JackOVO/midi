@@ -1,0 +1,75 @@
+@import "global";
+
+$title-h1-font-size: rem-calc(24);
+$title-h3-font-size: rem-calc(18);
+$h-font-padding: rem-calc(24) 0 rem-calc(12) 0;
+
+// 属性文本
+$attr-font-size: rem-calc(14);
+$attr-color: $black;
+$attr-name-color: #a3a4a8;
+$attr-number-color: #3b9eff;
+
+// 推荐项
+$recommend-item-height: rem-calc(50);
+$recommend-item-padding: 0 rem-calc(40);
+$recommend-item-font-size: rem-calc(18);
+$recommend-item-color: #5a5a5a;
+$recommend-item-bg-color: #f5f5f5;
+$recommend-item-hover-bg-color: #fafafa;
+$recommend-item-border-color: #e0e0e0;
+$recommend-item-border-style: dashed;
+
+@include exports ("label") {
+
+  h1.title {
+    margin: 0;
+    padding: $h-font-padding;
+    font-size: $title-h1-font-size;
+    line-height: 1;
+  }
+
+  h3.title {
+    margin: 0;
+    padding: $h-font-padding;
+    font-size: $title-h3-font-size;
+    line-height: 1;
+  }
+
+  .recommend-item {
+    position: relative;
+    height: $recommend-item-height;
+    padding: $recommend-item-padding;
+    line-height: $recommend-item-height;
+    font-size: $recommend-item-font-size;
+    background-color: $recommend-item-bg-color;
+    color: $recommend-item-color;
+    cursor: pointer;
+
+    &::before {
+      position: relative;
+      content: "";
+      display: block;
+      float: left;
+      width: 100%;
+      border-width: 1px;
+      border-style: $recommend-item-border-style;
+      border-color: $recommend-item-border-color;
+    }
+
+    &:hover { background-color: $recommend-item-hover-bg-color; }
+    &.first { &::before { border: 0; } }
+    > .attr {
+      position: absolute;
+      right: rem-calc(40);
+    }
+  }
+
+  .attr {
+    font-size: $attr-font-size;
+    color: $attr-color;
+
+    .attr-name { color: $attr-name-color; }
+    .attr-number { color: $attr-number-color; }
+  }
+}

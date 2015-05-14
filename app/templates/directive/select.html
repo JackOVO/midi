@@ -1,0 +1,10 @@
+<div class="select-control">
+  <div ng-click="toggle(isOpen)" class="select-input">{{text}}</div>
+  <div ng-show="isOpen" class="select-dropdown">
+    <div class="select-dropdown-content">
+      <div ng-repeat="option in list"
+           ng-hide="index==$index"
+           ng-click="select($index)" class="option">{{option.text}}</div>
+    </div>
+  </div>
+ </div> 

@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>文件系统-</title>
   <!-- bower:css -->
+  <link rel="stylesheet" href="/bower_components/perfect-scrollbar/css/perfect-scrollbar.css" />
   <!-- endbower -->
 
   <!-- build:css styles/styles.css -->
@@ -13,48 +14,124 @@
   <!-- endbuild -->
 </head>
 <body>
-
-  <div id="file-header">
-    <div class="wrapper">
-      <div class="right">
-        <a href="javascript:;">登陆</a>
-        <a href="javascript:;">登陆</a>
-      </div>
-      <a href="/index.html"><img src="images/logo.png" alt=""></a>
-      <input type="text" class="search-input"><span class="select-control">
-        <div class="select-input">全部资源</div>
-        <div class="select-dropdown">
-          <div class="select-dropdown-content">
-            <div class="option">选项</div>
-          </div>
+  <div id="file-main" ng-controller="FileController as file">
+    <div id="file-header" ng-controller="SearchController as search">
+      <div class="wrapper clearfix">
+        <a href="javascript:;"><img src="images/logo.png" alt="LOGO"></a>
+        <input proposal input="search.input" ng-model="search.input"
+          class="search-input"
+          type="text"
+          placeholder="搜索8">
+        <selectorz list="search.dataTypeList" event="search.event.dataTypeEvent"></selectorz>
+        <selectorz 
+          ng-show="search.isTradeTypeShow"
+          list="search.tradeTypeList"
+          event="search.event.tradeTypeEvent"></selectorz>
+         <div class="button small primary disabled">
+           <div class="icon-search">&nbsp;</div>
+         </div>
+         <div class="right">
+          <div class="button cylinder login">登陆</div>
+          <div id="file-teach-area">&nbsp;</div>
         </div>
-      </span><button class="small search btn-search">&nbsp;</button>
+      </div>
+    </div><!-- 文件头结束 -->
+    <div id="file-container">
+      <div id="file-title" class="wrapper">
+        <h1 class="title" ng-bind="file.title"></h1>
+      </div>
+      <div class="wrapper">
+        <div id="file-content" maximize=".icon-max-container" eventorz="file.maximizeEvent">
+          <i class="icon-max-container"></i>
+          <embed scrollbar tabIndex="-1"></embed>
+        </div>
+      </div>
+    </div><!-- 文件容器结束 -->
+    <div id="file-status" class="wrapper">
+      <span class="attr">
+        <span class="attr-name">来源：</span>
+        <span ng-bind="file.attrs.source"></span>
+      </span>
+      <span class="attr">
+        <span class="attr-name">数据量：</span>
+        <span ng-bind="file.attrs.volume"></span>
+      </span>
+      <span class="attr">
+        <span class="attr-name" ng-bind="file.attrs.freq + '数据：'"></span>
+        <span ng-bind="file.attrs.startDate + '-' + file.attrs.endDate"></span>
+      </span>
+      <div class="right" ng-controller="ShareController as shareCtrl">
+        <span id="file-share-bar">分享：
+          <i class="icon-btn icon-weibo" ng-click="shareCtrl.share('weibo')">&nbsp;</i>
+          <i class="icon-btn icon-weixin" ng-click="shareCtrl.share('weixin')">&nbsp;</i>
+          <i class="icon-btn icon-tweibo" ng-click="shareCtrl.share('tweibo')">&nbsp;</i>
+          <i class="icon-btn icon-douban" ng-click="shareCtrl.share('douban')">&nbsp;</i>
+          <i class="icon-btn icon-qone" ng-click="shareCtrl.share('qzone')">&nbsp;</i>
+        </span>
+
+        <qrcode show="shareCtrl.showQrcode" text="shareCtrl.shareUrl"></qrcode>
+
+        <div class="button small primary" ng-click="file.download(file.fileId)">已下载
+          <span style="font-size:14px;" ng-bind="'('+file.attrs.downloadTimes+')'"></span>
+        </div>
+      </div>
+    </div><!-- 文件状态结束 -->
+  </div>
+  <div id="file-recommend">
+    <div class="wrapper" ng-controller="RecommendController as recomdCtrl">
+      <h3 class="title" ng-show="recomdCtrl.list.length">相关表格推荐</h3>
+      <div class="recommend-item"
+        ng-class="{'first':$first}"
+        ng-click="recomdCtrl.selectRecomd(recomd.fileId)"
+        ng-repeat="recomd in recomdCtrl.list"
+        >
+
+        <span ng-bind="recomd.title"></span>
+        <span class="attr">
+          <span class="attr-number" ng-bind="recomd.attrs.viewTimes"></span>人浏览
+        </span>
+      </div>
     </div>
   </div>
-
-  <div>
-    <div class="a b">
-      
-    </div>
-    <div class="a b">2</div>
-    <div class="a b">3</div>
-    <div class="a">4</div>
-  </div>
-
 
   <!-- build:js js/lib.js -->
   <!-- bower:js -->
+  <script src="/bower_components/jquery/dist/jquery.js"></script>
+  <script src="/bower_components/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
   <script src="/bower_components/angular/angular.js"></script>
-  <script src="/bower_components/angular-cookies/angular-cookies.js"></script>
+  <script src="/bower_components/jquery-qrcode/jquery.qrcode.min.js"></script>
   <!-- endbower -->
   <!-- endbuild -->
 
   <!-- build:js js/app.js -->
   <!-- inject:js -->
   <script src="/app/scripts/app.module.js"></script>
+  <script src="/app/scripts/core/core.module.js"></script>
+  <script src="/app/scripts/directives/directives.module.js"></script>
+  <script src="/app/scripts/recommend/recommend.module.js"></script>
+  <script src="/app/scripts/search/search.module.js"></script>
+  <script src="/app/scripts/share/share.module.js"></script>
+  <script src="/app/scripts/file/file.module.js"></script>
+  <script src="/app/scripts/core/data.service.js"></script>
+  <script src="/app/scripts/directives/embed.directive.js"></script>
+  <script src="/app/scripts/directives/maximize.directive.js"></script>
+  <script src="/app/scripts/directives/proposal.directive.js"></script>
+  <script src="/app/scripts/directives/qrcode.directive.js"></script>
+  <script src="/app/scripts/directives/scrollbar.directive.js"></script>
+  <script src="/app/scripts/directives/select.directive.js"></script>
+  <script src="/app/scripts/recommend/recommend.bean.js"></script>
+  <script src="/app/scripts/recommend/recommend.controller.js"></script>
+  <script src="/app/scripts/recommend/recommend.service.js"></script>
+  <script src="/app/scripts/search/search.controller.js"></script>
+  <script src="/app/scripts/share/share.controller.js"></script>
+  <script src="/app/scripts/share/share.service.js"></script>
+  <script src="/app/scripts/file/file.bean.js"></script>
+  <script src="/app/scripts/file/file.controller.js"></script>
+  <script src="/app/scripts/file/file.service.js"></script>
   <!-- endinject -->
 
   <!-- inject:templates:js -->
+  <script src="/.tmp/templates.js"></script>
   <!-- endinject -->
   <!-- endbuild -->
   </body>

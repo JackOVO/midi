@@ -142,6 +142,24 @@ $base-line-height: 1.5 !default;
   }
 }
 
+// 用线性渐变创建网格
+// $grid-size - 每个背景的大小
+// $line-width - 线的宽度
+// $line-color - 线的颜色
+@mixin linear-grid ($grid-size: 6px, $line-width: 2px, $line-color: $white) {
+  $tranWidth: $grid-size - $line-width;
+  background:
+    -webkit-linear-gradient(left, transparent $tranWidth, $white $tranWidth),
+    -webkit-linear-gradient(top, transparent $tranWidth, $white $tranWidth);
+  background:
+    -moz-linear-gradient(left, transparent 4px, $white 4px),
+    -moz-linear-gradient(top, transparent 4px, $white 4px);
+  background:
+    -ms-linear-gradient(left, transparent 4px, $white 4px),
+    -ms-linear-gradient(top, transparent 4px, $white 4px);
+  background-size: $grid-size $grid-size;
+}
+
 $white         : #FFFFFF !default;
 $ghost         : #FAFAFA !default;
 $snow          : #F9F9F9 !default;
@@ -190,6 +208,7 @@ $body-font-color: $base-font-color !default;
 $body-font-family: $font-family !default;
 $body-font-weight: $font-weight-normal !default;
 $body-font-style: normal !default;
+$body-line-block-spac-width: -4px;
 
 // 控制字体平滑
 $font-smoothing: antialiased !default;

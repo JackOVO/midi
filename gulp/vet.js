@@ -31,9 +31,6 @@ module.exports = function (config) {
     startPlatoVisualizer(done);
   });
 
-
-
-
   /**
    * 用Plato开始观察, 生成报告
    */
@@ -55,7 +52,7 @@ module.exports = function (config) {
     function platoCompleted (report) {
       var overview = plato.getOverviewReport(report); // 概要
       if (args.verbose) {
-        log(overview.summary);
+        config.log(overview.summary);
       }
       if (done) { done(); }
     }

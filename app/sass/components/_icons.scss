@@ -1,159 +1,93 @@
-@import "global";
-// 图标定义
+@import "components/_global.scss";
 
-// 基础宽高
-$icon-base-height: rem-calc(12);
-$icon-base-width: rem-calc(12);
-
-// 图片路径的映射
-$icon-image-map: (
-  "arrow": "../images/arrow.png", // 角
-  "btn-search": "../images/button-search.png"
-);
-
-
-// 控制图标的尺寸
-// $width - 控制宽度
-// $height - 控制高度
-@mixin icon-size (
-  $height:$icon-base-height,
-  $width:$icon-base-width) {
-
-  height: $height;
-  width: $width;
-}
-
-// 图标容器
-// $width - 控制宽度可以显示的宽度
-// $height - 控制容器可以显示的高度
-@mixin icon-container (
-  $width: $icon-container-width,
-  $height: $icon-container-height) {
-
-  display: block;
-  position: relative;
-  overflow: hidden;
-  @include icon-size($height, $width);
-}
-
-// 设置图标图片
-// $imgKey - icon路径的key
-// $img-posi - 偏移量. Default: null
-@mixin icon-map ($img-key: $icon-base-img-key, $img-posi: null) {
-
-  $img-url: map-get($icon-image-map, $img-key);
-  background-image: url($img-url);
-  @if $img-posi != null {
-    background-position: nth($img-posi, 1) nth($img-posi, 2);
-  }
-}
-
-// 创建基础的图标样式
-// $height - 高度
-// $width - 宽度
-// $img-key - 图片映射路径key
-// $img-posi - 图片偏移量
-@mixin icon-image (
-  $img-key:null, $img-posi:null,
-  $height:$icon-base-height, $width:$icon-base-width) {
-
-  @include icon-size($height, $width);
-  @include icon-map($img-key, $img-posi);
-}
-
-// 创建切换的icon
-// $height - 高度
-// $width - 宽度
-// $key - 图片映射路径key
-// $img-hover-key - hover下图片映射路径key
-@mixin icon-toggle (
-  $img-key: null, $img-hover-key: null,
-  $height:$icon-base-height, $width:$icon-base-width) {
-
-  @include icon-size($height, $width);
-  @if $img-key != null { @include icon-map($img-key); }
-  @if $img-hover-key != null {
-    &:hover { @include icon-map($img-hover-key); }
-  }
-}
-
-// 伪元素决定定义通过容器显示图标
-// $img-key - 图标映射键
-// $top - 上偏移
-// $left - 左偏移
-@mixin icon-abs-before (
-  $img-key: $icon-base-img-key,
-  $img-abs: null) {
-
-  @if $img-key != null {
-    $img-url: map-get($icon-image-map, $img-key);
-
-    &::before {
-      content: url($img-url);
-      position: absolute;
-      left: nth($img-abs, 1);
-      top: nth($img-abs, 2);
-      display: inline-block;
-    }
-  }
-}
+$icon-max-container-width: rem-calc(30);
+$icon-max-container-height: rem-calc(30);
+$icon-max-container-bg-color: #f0f0f0;
 
 @include exports ("icons") {
 
-  .btn-search {
-    @include icon-map("btn-search", (50%, 50%));
+  .icon-max-container {
+    display: inline-block;
+    width: $icon-max-container-width;
+    height: $icon-max-container-height;
+    border-radius: 5px;
+    background-color: $icon-max-container-bg-color;
+    cursor: pointer;
+  }
+
+  .icon-btn {
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  .icon-sprite, .icon-arrow, .icon-btn-down, .icon-douban, .icon-qone, .icon-search, .icon-tweibo, .icon-weibo, .icon-weixin {
+    background-image: url('../images/../images/icon-s24f4a4683e.png');
     background-repeat: no-repeat;
   }
 
-  // .icon-btn { cursor: pointer; }
-  // .icon, .icon-btn {
-  //   display: inline-block;
-  //   background-repeat: no-repeat;
+  .icon-arrow {
+    background-position: 0 0;
+    height: 5px;
+    width: 7px;
+  }
 
-  //   &.row, &.col {
-  //     @include single-transition(background-image);
-  //     @include icon-toggle("row", "row-hover");
-  //   }
-  //   &.col { @include rotate2d(90deg); }
-  //   &.remove { @include icon-image("icon-collecion", (-123px, -87px), 16px, 16px); }
-  //   &.remove:hover { @include icon-image("icon-collecion", (-144px, -87px), 16px, 16px); }
+  .icon-btn-down {
+    background-position: 0 -5px;
+    height: 20px;
+    width: 17px;
+  }
 
-  //   &.arrow-min-down { @include icon-image("arrow-min", (0, 0), 3px, 5px); }
-  //   &.add-sheet { @include icon-image("add-sheet", (0, 0), 18px, 18px);}
-  //   &.info-min { @include icon-image("info-min", (0, 0), 14px, 14px); }
-  //   &.download { @include icon-image("download", (0, 0), 20px, 17px); }
-  // }
-  // .icon-round {
-  //   width: 36px;
-  //   height: 36px;
-  //   border-radius: 36px;
-  //   border: 1px solid gray;
+  .icon-douban {
+    background-position: 0 -25px;
+    height: 20px;
+    width: 20px;
+  }
+  .icon-douban:hover, .icon-douban.douban-hover {
+    background-position: 0 -45px;
+  }
 
-  //   &.download {@include icon-image("download", (9px, 5px), 36px, 36px); }
-  //   &.share {@include icon-image("share", (7px, 6px), 36px, 36px); }
-  // }
+  .icon-qone {
+    background-position: 0 -65px;
+    height: 20px;
+    width: 20px;
+  }
+  .icon-qone:hover, .icon-qone.qone-hover {
+    background-position: 0 -85px;
+  }
 
-  // // 16 * 16
-  // .icon-open { @include icon-abs-before($img-abs      :(-19px, -24px)); }
-  // .icon-refresh { @include icon-abs-before($img-abs   :(-53px, -24px)); }
-  // .icon-download { @include icon-abs-before($img-abs  :(-88px, -24px)); }
-  // .icon-b { @include icon-abs-before($img-abs         :(-157px, -24px)); }
-  // .icon-i { @include icon-abs-before($img-abs         :(-226px, -24px)); }
-  // .icon-x { @include icon-abs-before($img-abs         :(-122px, -24px)); }
-  // .icon-a { @include icon-abs-before($img-abs         :(-190px, -25px)); }
-  // .icon-left { @include icon-abs-before($img-abs      :(-328px, -24px)); }
-  // .icon-right { @include icon-abs-before($img-abs     :(-259px, -24px)); }
-  // .icon-center { @include icon-abs-before($img-abs    :(-294px, -24px)); }
-  // .icon-bg { @include icon-abs-before($img-abs        :(-259px, -55px)); }
-  // .icon-filter { @include icon-abs-before($img-abs    :(-19px, -55px)); }
-  // .icon-line-c { @include icon-abs-before($img-key:"line-chart", $img-abs:(0, -10px)); };
-  // .icon-bar-c { @include icon-abs-before($img-key:"bar-chart", $img-abs:(0, -10px)); };
-  // .icon-pie-c { @include icon-abs-before($img-key:"pie-chart", $img-abs:(0, -10px)); };
-  // .icon-area-c { @include icon-abs-before($img-key:"area-chart", $img-abs:(0, -10px)); };
-  // .icon-e { @include icon-abs-before($img-abs         :(-53px, -55px)); }
-  // .icon-percentage { @include icon-abs-before($img-abs:(-88px, -55px)); }
-  // .icon-kp { @include icon-abs-before($img-abs        :(-157px, -55px)); }
-  // .icon-kq { @include icon-abs-before($img-abs        :(-122px, -55px)); }
-  // .icon-y { @include icon-abs-before($img-abs         :(-190px, -55px)); }
+  .icon-search {
+    background-position: 0 -105px;
+    height: 24px;
+    width: 24px;
+  }
+
+  .icon-tweibo {
+    background-position: 0 -129px;
+    height: 20px;
+    width: 20px;
+  }
+  .icon-tweibo:hover, .icon-tweibo.tweibo-hover {
+    background-position: 0 -149px;
+  }
+
+  .icon-weibo {
+    background-position: 0 -169px;
+    height: 20px;
+    width: 20px;
+  }
+  .icon-weibo:hover, .icon-weibo.weibo-hover {
+    background-position: 0 -189px;
+  }
+
+  .icon-weixin {
+    background-position: 0 -209px;
+    height: 20px;
+    width: 20px;
+  }
+  .icon-weixin:hover, .icon-weixin.weixin-hover {
+    background-position: 0 -229px;
+  }
 
 }
+
+

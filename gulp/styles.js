@@ -1,8 +1,9 @@
 var gulp = require('gulp');
 var browserSync = require('browser-sync');
+
 var $ = require('gulp-load-plugins')();
 
-module.exports = function (config) {
+module.exports = function(config) {
 
   /**
    * 编译Sass
@@ -16,7 +17,7 @@ module.exports = function (config) {
       .pipe($.plumber()) // 文件流错误处理
       .pipe($.sass()).on('error', config.errLog('Sass'))
       .pipe(gulp.dest(config.temp))
-      .pipe(browserSync.reload({ stream: true }));
+      .pipe(browserSync.reload({stream: true}));
   });
 
   /**

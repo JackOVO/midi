@@ -2,46 +2,232 @@
 @import "components/_global.scss";
 @import "components/_icons.scss";
 @import "components/_input.scss";
+@import "components/_label.scss";
 @import "components/_buttons.scss";
 
-$wrapper-width: rem-calc(1200);
-$search-input-width: rem-calc(400);
-$select-control-width: rem-calc(90);
 
-$file-header-height: rem-calc(60);
-$file-header-padding: 0 rem-calc(110);
+// 文件页布局
+$file-wrapper-width: rem-calc(1200);
+$file-header-height: rem-calc(61);
+$file-header-wrapper-padding: 0 rem-calc(110);
+$file-header-wrapper-line-height: rem-calc(60);
+$file-title-height: rem-calc(60);
+$file-content-padding: rem-calc(30) rem-calc(40) rem-calc(40) rem-calc(40);
+$file-max-btn-top: rem-calc(20);
+$file-max-btn-right: rem-calc(20);
+$file-status-height: rem-calc(41);
 
+// 文件头组件
+$file-header-search-input-width: rem-calc(400);
+$file-header-select-input-width: rem-calc(90);
 
+// 文件状态
+$file-status-attr-spac: rem-calc(32);
+$file-primary-btn-width: rem-calc(140);
+$file-primary-btn-height: rem-calc(38);
+
+// 文件页背景
+$file-main-bg-color: #f5f5f5;
 $file-header-bg-color: #eef7ff;
 $file-header-border-color: #a3cef9;
+$file-content-border-color: #d0d0d0;
+$file-content-bg-color: $white;
 
-#file-header {
-  background-color: $file-header-bg-color;
-  box-shadow: 0 1px $file-header-border-color;
+// 文件页面边框
+$file-header-bottom-border: 1px solid $file-header-border-color;
 
-  .wrapper {
-    height: $file-header-height;
-    padding: $file-header-padding;
-    font-size: 14px;
-    line-height: $file-header-height;
+// 九宫格
+$file-teach-area-width: rem-calc(16);
+$file-teach-area-bg-color: #50a9ff;
+$file-teach-area-hover-bg-color: #3b9eff;
 
-    > input { margin-left: 10px; }
-  }
-
-  .search-input {
-    width: $search-input-width;
-    outline: 0;
-  }
-
-  .select-control {
-    width: $select-control-width;
-    margin-left: -1px;
-  }
-}
-.wrapper {
-  width: $wrapper-width;
-  margin: 0 auto;
-}
-div {
+div, span {
   //outline: 1px solid orange;
 }
+div.inline {
+  display: inline-block;
+}
+.middle-line {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%; left: 0;
+    display: block;
+    margin-top: -1px;
+    width: 100%;
+    height: 1px;
+    background-color: green;
+  }
+}
+
+.wrapper {
+  width: $file-wrapper-width;
+  margin: 0 auto;
+}
+
+// 撑满容器
+.greedy {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  outline: 0; // div焦点
+}
+
+// 最大化
+.maximize {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  z-index: 2;
+  width: 100% !important;
+  height: 100% !important;
+  @include single-transition(all);
+}
+
+// 关于各种垂直居中的问题, icon
+#file-share-bar { margin: 0 12px 0 6px; }
+#file-share-bar .icon-btn {
+  line-height: 20px;
+  height: auto;
+  margin-right: 6px;
+}
+
+#file-main {
+  height: 100%;
+  padding-top: $file-header-height;
+  border-bottom: 1px solid #aeaeae;
+  background-color: $file-main-bg-color;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, .5);
+
+  .wrapper {
+    padding: $file-header-wrapper-padding;
+  }
+}
+
+#file-header {
+  position: relative;
+  height: $file-header-height;
+  margin-top: -$file-header-height;
+  border-bottom: $file-header-bottom-border;
+  line-height: $file-header-wrapper-line-height; // 减2使大家垂直居中
+  background-color: $file-header-bg-color;
+
+  .wrapper {
+
+    //> * { vertical-align: middle; } // 不同字号垂直居中问题
+
+    .search-input {
+      width: $file-header-search-input-width;
+    }
+
+    .select-control {
+      width: $file-header-select-input-width;
+      margin-top: -4px; // 字小两号会不垂直居中
+      margin-left: ($body-line-block-spac-width - 2);
+      vertical-align: middle;
+    }
+
+    .primary {
+      margin-left: ($body-line-block-spac-width - 2);
+      &:hover > .icon-search { opacity: .9; }
+      &.disabled > .icon-search { opacity: .5; }
+    }
+    .cylinder { border: 0; } // 边框影响垂直居中
+  }
+}
+
+#file-container {
+  height: 100%;
+  padding-top: $file-title-height;
+  padding-bottom: $file-status-height;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .5);
+
+  .wrapper {
+    height: 100%;
+  }
+
+  #file-title {
+    height: $file-title-height;
+    margin-top: -$file-title-height;
+  }
+
+  #file-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: $file-content-padding;
+    border: 1px solid $file-content-border-color;
+    border-top-color: #eeeeee;
+    background-color: $file-content-bg-color;
+
+    .icon-max-container {
+      position: absolute;
+      top: $file-max-btn-top;
+      right: $file-max-btn-right;
+    }
+  }
+}
+
+#file-status {
+  height: $file-status-height;
+  margin-top: -$file-status-height;
+  line-height: $file-status-height;
+
+  .attr { margin-right: $file-status-attr-spac; }
+  .right {
+    margin-top: -1px;
+
+    .primary {
+      height: auto;
+      width: $file-primary-btn-width;
+      font-size: rem-calc(18);
+      line-height: $file-primary-btn-height;
+      letter-spacing: 0;
+    }
+  }
+}
+
+#file-recommend {
+  .wrapper {
+    padding: $file-header-wrapper-padding;
+  }
+}
+
+#file-teach-area {
+  display: inline-block;
+  width: $file-teach-area-width;
+  height: $file-teach-area-width;
+  line-height: $file-teach-area-width;
+  @include linear-grid;
+  background-color: $file-teach-area-bg-color;
+  cursor: pointer;
+
+  &:hover { background-color: $file-teach-area-hover-bg-color; }
+}
+
+/************************************************分享*/
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, .3);
+  background-color: rgb(255, 255, 255);
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, .3) 0px 3px 7px;
+}
+.modal-header {
+  padding: 9px 15px;
+  border-bottom: 1px solid #EEEEEE;
+}
+.modal-header h3 {
+  margin: 0;
+  font-size: 1em;
+  line-height: 20px;
+  font-weight: normal;
+}
+
+

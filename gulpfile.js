@@ -6,6 +6,7 @@ var wrench = require('wrench');
 /***********路径配置***********/
 var app    = './app/';
 var script = app + 'scripts/';
+var templates = app + 'templates/';
 var temp = './.tmp/';
 var report = './report/';
 var bower = {
@@ -17,7 +18,7 @@ var wiredep = require('wiredep'); //包裹依赖控制
 var bowerFiles = wiredep({devDependencies: true})['js']; //拿到依赖路径
 
 var config = {
-  alljs : [ app + '**/*.js', './*.js' ],
+  alljs : [ app + '**/*.js'], // , './*.js' 
 
   index : app + 'index.html',
   sass  : app + 'sass/styles.scss',
@@ -28,7 +29,7 @@ var config = {
     script + '**/*.js',
     '!' + script + '**/*.spec.js' // 测试文件
   ],
-  htmltemplates: script + '**/*.html', // 模板模块在一起
+  htmltemplates:  templates + '**/*.html', // 模板模块在一起
   //jsOrder: [script + '**/*.module.js', script + '**/*.js'],
 
   app   : app,
@@ -46,8 +47,8 @@ var config = {
   templateCache: {
     file: 'templates.js',
     options: {
-      module: 'app.core',
-      root: 'app/'
+      module: 'app.templates',
+      standalone: true // 创建独立的模块
     }
   },
   /**plato**/
