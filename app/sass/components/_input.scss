@@ -6,8 +6,12 @@ $input-padding-left: rem-calc(10);
 
 // 搜索输入框
 $search-input-height: rem-calc(36);
+$search-dropdown-content-max-height: rem-calc(200);
 
 $search-input-border-color: #3b9eff;
+$search-dropdown-broder-color: #D3D7D9;
+$search-option-hover-bg-color: #F0F0F0;
+$search-option-hover-font-color: $black;
 
 $search-input-border: 1px solid $search-input-border-color;
 
@@ -36,11 +40,49 @@ $select-border-color: #3b9eff;
 
   input { outline: 0; }
 
-  .search-input {
+  input.search-input {
     height: $search-input-height;
     //line-height: $search-input-height;
     padding-left: $input-padding-left;
     border: $search-input-border;
+  }
+
+  .search-control {
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+    line-height: 1;
+
+    .search-dropdown {
+      position: absolute;
+      z-index: 1;
+      width: 100%;
+      max-height: $search-dropdown-content-max-height;
+      margin-top: -1px;
+      overflow: auto;
+      line-height: $select-dropdown-line-height;
+      border: 1px solid $search-dropdown-broder-color;
+      border-top-color: $search-input-border-color;
+
+      .search-dropdown-content {
+        display: inline-block;
+        min-width: 100%;
+        background-color: $white;
+
+        .option {
+          padding-left: $input-padding-left;
+          cursor: $select-options-cursor;
+
+          font-size: 14px;
+          line-height: 29px;
+
+          &.hover, &:hover {
+            color: $search-option-hover-font-color;
+            background-color: $search-option-hover-bg-color;
+          }
+        }
+      }
+    }
   }
 
   .select-control {

@@ -41,7 +41,6 @@
      * @return {Window} 打开的窗口
      */
     function shareByFirm (firm, attrs) {
-console.info(firm);
       var firmConfig = priv.shareMap[firm];
       var shareUrl = firmConfig.baseUrl;
       var constant = firmConfig.constant;
@@ -49,7 +48,6 @@ console.info(firm);
 
       if (!shareUrl) { console.error('没有相匹配的分享地址' + firm); return; }
       if (constant) { attrs = angular.extend({}, constant, attrs); }
-console.info(attrs);
 
       var paramStr = '';
       // 拼接参数, 映射键
@@ -60,7 +58,6 @@ console.info(attrs);
       });
       paramStr = paramStr.substring(0, paramStr.length - 1);
       shareUrl += paramStr && '?' + paramStr;
-console.info(shareUrl);
       return openWindow(shareUrl);
     }
 

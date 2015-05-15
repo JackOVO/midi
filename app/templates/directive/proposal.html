@@ -1,0 +1,12 @@
+<div class="search-control">
+  <input ng-model="input" class="search-input" type="text" placeholder="">
+  <div ng-show="isOpen" class="search-dropdown">
+    <div class="search-dropdown-content">
+      <div class="option"
+        ng-click="clcik($index, option)"
+        ng-repeat="option in data">{{option}}</div>
+    </div>
+  </div>
+</div>
+
+

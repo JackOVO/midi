@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="ch">
+<html lang="ch" ng-controller="AppController as app">
 <head>
   <meta charset="UTF-8">
-  <title>文件系统-</title>
+  <title ng-bind="'文件系统-' + app.title"></title>
+  <!-- build:css styles/v.css -->
   <!-- bower:css -->
   <link rel="stylesheet" href="/bower_components/perfect-scrollbar/css/perfect-scrollbar.css" />
   <!-- endbower -->
+  <!-- endbuild -->
 
   <!-- build:css styles/styles.css -->
   <!-- inject:css -->
@@ -17,21 +19,26 @@
   <div id="file-main" ng-controller="FileController as file">
     <div id="file-header" ng-controller="SearchController as search">
       <div class="wrapper clearfix">
-        <a href="javascript:;"><img src="images/logo.png" alt="LOGO"></a>
-        <input proposal input="search.input" ng-model="search.input"
-          class="search-input"
-          type="text"
-          placeholder="搜索8">
+        <a href="http://www.dfinder.cn/"><img src="images/logo.png" alt="LOGO"></a>
+        <input proposal class="search-input" type="text" placeholder=""
+          input="search.input"
+          change="search.selectedChange"
+          query="search.query"
+          data="search.keywords">
         <selectorz list="search.dataTypeList" event="search.event.dataTypeEvent"></selectorz>
         <selectorz 
           ng-show="search.isTradeTypeShow"
           list="search.tradeTypeList"
           event="search.event.tradeTypeEvent"></selectorz>
-         <div class="button small primary disabled">
+         <div class="button small primary" ng-class="{'disabled':!search.input}" ng-click="search.jump(search.input)">
            <div class="icon-search">&nbsp;</div>
          </div>
          <div class="right">
-          <div class="button cylinder login">登陆</div>
+          <span ng-bind="app.userName"></span>
+          <div ng-hide="app.userName" ng-click="app.login()"
+            class="button cylinder login">登陆</div>
+          <div ng-show="app.userName" ng-click="app.exit()"
+            class="button cylinder login">退出</div>
           <div id="file-teach-area">&nbsp;</div>
         </div>
       </div>
@@ -107,12 +114,15 @@
   <!-- inject:js -->
   <script src="/app/scripts/app.module.js"></script>
   <script src="/app/scripts/core/core.module.js"></script>
+  <script src="/app/scripts/file/file.module.js"></script>
   <script src="/app/scripts/directives/directives.module.js"></script>
   <script src="/app/scripts/recommend/recommend.module.js"></script>
   <script src="/app/scripts/search/search.module.js"></script>
   <script src="/app/scripts/share/share.module.js"></script>
-  <script src="/app/scripts/file/file.module.js"></script>
   <script src="/app/scripts/core/data.service.js"></script>
+  <script src="/app/scripts/file/file.bean.js"></script>
+  <script src="/app/scripts/file/file.controller.js"></script>
+  <script src="/app/scripts/file/file.service.js"></script>
   <script src="/app/scripts/directives/embed.directive.js"></script>
   <script src="/app/scripts/directives/maximize.directive.js"></script>
   <script src="/app/scripts/directives/proposal.directive.js"></script>
@@ -123,11 +133,9 @@
   <script src="/app/scripts/recommend/recommend.controller.js"></script>
   <script src="/app/scripts/recommend/recommend.service.js"></script>
   <script src="/app/scripts/search/search.controller.js"></script>
+  <script src="/app/scripts/search/search.service.js"></script>
   <script src="/app/scripts/share/share.controller.js"></script>
   <script src="/app/scripts/share/share.service.js"></script>
-  <script src="/app/scripts/file/file.bean.js"></script>
-  <script src="/app/scripts/file/file.controller.js"></script>
-  <script src="/app/scripts/file/file.service.js"></script>
   <!-- endinject -->
 
   <!-- inject:templates:js -->

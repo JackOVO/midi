@@ -22,11 +22,9 @@
             }
           });
  
-          scope.toggle = function() {
-           $timeout(function() {
-              scope.isOpen = !scope.isOpen;
-              console.info(scope.isOpen, !scope.isOpen);
-            }, 1);
+          scope.toggle = function(event) {
+            scope.isOpen = !scope.isOpen;
+            $(event.target).attr('mark', scope.$id);
           };
           scope.select = function(index) {
             scope.index = index;
@@ -38,9 +36,11 @@
             }
           };
 
-          $(window).click(function() {
-            scope.isOpen = false;
-            scope.$apply();
+          $(window).click(function(event) {
+            if ($(event.target).attr('mark')-0 !== scope.$id) {
+              scope.isOpen = false;
+              scope.$apply();
+            }
           });
         }
       };

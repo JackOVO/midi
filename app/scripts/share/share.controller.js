@@ -20,8 +20,6 @@
         'url': absUrl.replace(/#\/(\d+)/, function(p, t1){ return '?fileId=' + t1; }),
         'title': nowFile.toString()
       };
-console.info(nowFile);
-
 
       // 二维码分享
       if (firm === 'weixin') {

@@ -69,7 +69,9 @@
       var params = {'fileId': fileId};
       return dataService.get('downloadValid', params)
         .then(function(message) {
-          console.info(message);
+          if (message && message.errorMessage === 'OK') {
+            dataService.download('downloadFile', params);
+          }
         });
     }
 
